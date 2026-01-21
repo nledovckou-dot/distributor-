@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Changan 2026 — Аналитика звонков</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <div class="decor decor--one"></div>
+      <div class="decor decor--two"></div>
+      <div class="decor decor--three"></div>
+      <div class="decor decor--four"></div>
+      <header class="hero">
+        <div class="hero__overlay"></div>
+        <img class="hero__image" src="brand-cover.png" alt="3D-рендер автомобиля" />
+        <div class="hero__content">
+          <div class="hero__brand">
+            <img class="hero__logo" src="arb-logo.svg" alt="ARB" />
+            <span class="hero__tag">Отчет по новым авто</span>
+          </div>
+          <h1>Аналитический отчет по звонкам новых автомобилей</h1>
+          <p class="hero__subtitle">
+            Бренд: Changan • Период: декабрь 2025 • Источники: Avito, Auto.ru, Calltouch
+          </p>
+          <div class="hero__meta">
+            <span>Уровень: директор по продажам / коммерческий директор / OEM</span>
+            <span>Фокус: только звонки по новым авто</span>
+          </div>
+          <div class="hero__stats">
+            <div class="stat">
+              <span class="stat__label">Всего строк в CSV</span>
+              <span class="stat__value" id="statTotalRows">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Звонков с текстом</span>
+              <span class="stat__value" id="statWithText">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Новые авто (анализ)</span>
+              <span class="stat__value" id="statNewCarCalls">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Средняя длит., сек</span>
+              <span class="stat__value" id="statAvgDuration">—</span>
+            </div>
+          </div>
+        </div>
+        <img class="hero__vector" src="vector-1.svg" alt="" />
+      </header>
+
+      <section class="section section--notice">
+        <div class="notice">
+          <h2>Ограничения данных</h2>
+          <p>
+            Отчет построен по сырым данным из файла <span class="mono">calls.csv</span>.
+            В анализ включены только звонки по новым автомобилям:
+            <strong id="statNewCarInline">—</strong> из
+            <strong id="statTotalInline">—</strong> строк (с текстом —
+            <strong id="statTextInline">—</strong>). Сервис, б/у и запчасти исключены.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>1. Темы обращений клиентов по новым автомобилям</h2>
+          <p>Классификация тем по интенсивности упоминаний в видимых диалогах.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            Категория фиксируется, если в тексте звонка есть ключевые слова по теме.
+            Один звонок может попадать в несколько тем. Проценты — от базы новых авто.
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Распределение тем (индекс 1–5)</h3>
+            <canvas id="themesPie" aria-label="Темы обращений"></canvas>
+            <p class="note">Индекс основан на формулировках «постоянно / часто / иногда».</p>
+            <div class="data-table" id="themesTable" aria-label="Темы и число звонков"></div>
+          </div>
+          <div class="card">
+            <h3>Выводы по темам</h3>
+            <ul class="list">
+              <li>Доминируют: цена/скидки (<span id="themePriceDominant"></span>).</li>
+              <li>Высокая нагрузка: кредит (<span id="themeCreditDominant"></span>).</li>
+              <li>До визита хотят закрыть: наличие и сроки (<span id="themeDeliveryDominant"></span>).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>2. Причины недовольства клиентов (только новые авто)</h2>
+          <p>Причины, которые реально подтверждаются в тексте расшифровок.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            Причина фиксируется по явным маркерам недовольства в тексте звонка.
+            Категории не взаимоисключающие — один звонок может содержать несколько причин.
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Причины недовольства (индекс 0–5)</h3>
+            <canvas id="dissatisfactionBar" aria-label="Причины недовольства"></canvas>
+            <p class="note">Нулевые значения означают отсутствие подтверждения в данных.</p>
+            <div
+              class="data-table"
+              id="dissatisfactionTable"
+              aria-label="Недовольство и число звонков"
+            ></div>
+          </div>
+          <div class="card">
+            <h3>Ключевые проблемные зоны</h3>
+            <ul class="list">
+              <li>Цена выше ожиданий и сравнение с конкурентами.</li>
+              <li>Отсутствие нужного авто или комплектации в наличии.</li>
+              <li>Долгие сроки поставки и неопределенность по кредиту.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>3. Типы возражений клиентов</h2>
+          <p>Возражения, выделенные из реальных формулировок клиентов.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            Возражение фиксируется при наличии прямой фразы или устойчивого выражения.
+            Возможны несколько возражений в одном звонке.
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Общее распределение возражений</h3>
+            <canvas id="objectionsBar" aria-label="Возражения"></canvas>
+            <div
+              class="data-table"
+              id="objectionsTable"
+              aria-label="Возражения и число звонков"
+            ></div>
+          </div>
+          <div class="card">
+            <h3>ТОП-5 ключевых возражений</h3>
+            <ol class="list list--ordered" id="objectionsTopList"></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>4. Возражения в разрезе моделей / брендов</h2>
+          <p>Сравнение проблем цены и доступности по моделям (если модель указана).</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            Используются только звонки с заполненным полем <span class="mono">model</span>.
+            Для каждой модели считаются возражения «дорого» и «долго ждать».
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Цена vs наличие (топ-модели)</h3>
+            <canvas id="modelObjections" aria-label="Возражения по моделям"></canvas>
+            <p class="note">Показаны модели с наибольшим числом звонков в данных.</p>
+          </div>
+          <div class="card">
+            <h3>Таблица по моделям</h3>
+            <div class="data-table" id="modelTable" aria-label="Модели и возражения"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>5. Качество коммуникации операторов / менеджеров</h2>
+          <p>Проблемы фиксировались по временным меткам и тексту диалогов.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <ul class="list">
+            <li>Пропадает связь — есть фразы про «обрыв», «связь плохая».</li>
+            <li>Плохая слышимость — «плохо слышно», «не слышно», «тихо».</li>
+            <li>Неуверенная речь — «не знаю», «не в курсе», «не подскажу».</li>
+            <li>Быстрый темп речи — просьбы «медленнее», «быстро говорите».</li>
+            <li>Перебивание клиента — фразы «не перебивайте», «перебиваете».</li>
+            <li>Длинные паузы — разрыв между репликами &ge; 25 секунд по тайм‑меткам.</li>
+            <li>Нет фиксации шага — нет фраз про визит/запись/перезвон в конце.</li>
+          </ul>
+        </div>
+        <div class="grid grid--3">
+          <div class="card">
+            <h3>Типовые проблемы (индекс 1–5)</h3>
+            <canvas id="qualityBar" aria-label="Качество коммуникации"></canvas>
+            <div
+              class="data-table"
+              id="qualityTable"
+              aria-label="Коммуникация и число звонков"
+            ></div>
+            <p class="note">Длинные паузы: разрыв между репликами &ge; 25 сек.</p>
+          </div>
+          <div class="card">
+            <h3>Паттерны ошибок</h3>
+            <ul class="list">
+              <li>Долгие паузы при поиске информации в системе.</li>
+              <li>Соединение с менеджером занимает 30+ секунд.</li>
+              <li>Звонок завершается без фиксации следующего шага.</li>
+            </ul>
+            <div class="callout">
+              <span class="callout__label">Доля проблемных звонков</span>
+              <span class="callout__value" id="problemShare">—</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Рейтинг операторов</h3>
+            <div class="data-table" id="operatorsTable" aria-label="Рейтинг операторов"></div>
+            <p class="note">Рейтинг рассчитан по количеству звонков с проблемами.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>6. Причины длинных и неэффективных звонков</h2>
+          <p>Факторы, повышающие длительность и нагрузку на операторов.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            «Длинный звонок» — длительность выше среднего по новым авто:
+            <span id="avgDurationInline">—</span> сек. Причины определяются по ключевым словам.
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Структура причин (stacked)</h3>
+            <canvas id="longCallsStacked" aria-label="Причины длинных звонков"></canvas>
+            <div
+              class="data-table"
+              id="longCallsTable"
+              aria-label="Причины длинных звонков и число звонков"
+            ></div>
+            <p class="note">Длинные звонки: <span id="longCallsTotal">—</span>.</p>
+          </div>
+          <div class="card">
+            <h3>Выявленные причины</h3>
+            <ul class="list">
+              <li>Ручные расчеты кредита и сравнение сценариев.</li>
+              <li>Уточнение деталей трейд-ин и истории автомобиля.</li>
+              <li>Поиск информации по наличию и ценам в реальном времени.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>7. Дополнительные связи для управленческих решений</h2>
+          <p>Каскады проблем, выявленные в текстах диалогов.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            Связи построены на пересечении тем и возражений в одном звонке.
+            Показываются категории с максимальными пересечениями.
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Связи спроса и конверсии</h3>
+            <ul class="list">
+              <li>«Цена / скидки» ( <span id="themePrice"></span> ) усиливает «дорого» и сравнение.</li>
+              <li>Дефицит наличия ( <span id="themeStock"></span> ) повышает «долго ждать».</li>
+              <li>Кредитные вопросы ( <span id="themeCredit"></span> ) тянут длительность звонков.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Связи процессов колл-центра</h3>
+            <ul class="list">
+              <li>Длинные паузы: <span id="qualityPauses"></span> звонков.</li>
+              <li>Ручной расчет кредита: <span id="longManualCredit"></span> длинных звонков.</li>
+              <li>Нет следующего шага: <span id="qualityNoNext"></span> звонков.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>8. Итоговые управленческие выводы</h2>
+          <p>Сводные управленческие приоритеты, основанные на видимых данных.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            ТОП‑блоки сформированы по частоте упоминаний в соответствующих категориях.
+            В каждой позиции указано количество и доля звонков.
+          </p>
+        </div>
+        <div class="grid grid--3">
+          <div class="card">
+            <h3>ТОП-5 причин потери сделок</h3>
+            <ul class="list">
+              <li>Цена выше ожиданий: <span id="lossPrice"></span>.</li>
+              <li>Отсутствие авто в наличии: <span id="lossStock"></span>.</li>
+              <li>Долгие сроки поставки: <span id="lossDelivery"></span>.</li>
+              <li>Нет нужной комплектации: <span id="lossTrim"></span>.</li>
+              <li>Неопределенность по кредиту: <span id="lossCredit"></span>.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>ТОП-5 факторов длинных звонков</h3>
+            <ul class="list">
+              <li>Ручной расчет кредита: <span id="longManual"></span>.</li>
+              <li>Поиск актуального наличия: <span id="longStock"></span>.</li>
+              <li>Несовпадение цены на сайте: <span id="longSitePrice"></span>.</li>
+              <li>Нет чёткого сценария: <span id="longNoScript"></span>.</li>
+              <li>Сложность кредитных условий: <span id="longCreditExplain"></span>.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Критические зоны</h3>
+            <ul class="list">
+              <li>Продукт: цена (<span id="critPrice"></span>).</li>
+              <li>Продажи: нет следующего шага (<span id="critNext"></span>).</li>
+              <li>Кредит: условия и расчеты (<span id="critCredit"></span>).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>9. Рекомендации</h2>
+          <p>Приоритетные действия для роста конверсии звонок → визит.</p>
+        </div>
+        <div class="legend">
+          <h3>Легенда и критерии</h3>
+          <p>
+            Рекомендации основаны на темах с максимальной долей звонков и причинах
+            длинных разговоров. Это управляемые действия на сайте и в скриптах.
+          </p>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Сайт и цифровые каналы</h3>
+            <ul class="list">
+              <li>Калькулятор кредита с реальными ставками и взносами.</li>
+              <li>Онлайн-наличие по модели/комплектации в реальном времени.</li>
+              <li>Прозрачные цены с указанием условий скидок и акций.</li>
+              <li>Быстрые ответы по срокам поставки до звонка.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Скрипты и процесс продаж</h3>
+            <ul class="list">
+              <li>Готовые ответы на ТОП-5 возражений.</li>
+              <li>Стандарт фиксации следующего шага (визит/бронь).</li>
+              <li>Единый пакет данных по цене и наличию в начале смены.</li>
+              <li>Автоматизация расчетов кредита и трейд-ин.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--footer">
+        <div class="footer">
+          <div>
+            <h2>Контекст</h2>
+            <p>
+              Отчет подготовлен для печати в PDF из браузера. Источник данных:
+              <span class="mono">Report_Changan_2026.tex</span>.
+            </p>
+          </div>
+          <div class="footer__meta">
+            <span>Дата: 21 января 2026</span>
+            <span>Статус: подтверждено по видимым транскрипциям</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+      const reportData = {
+        "total_rows": 59293,
+        "total_with_text": 47595,
+        "new_car_calls": 12862,
+        "avg_duration": 265.93,
+        "problem_calls_total": 11203,
+        "problem_calls_share": 87.1,
+        "themes": {
+          "Наличие автомобиля": {
+            "count": 3649,
+            "pct": 28.37
+          },
+          "Цена / скидки / акции": {
+            "count": 5873,
+            "pct": 45.66
+          },
+          "Сроки поставки": {
+            "count": 4731,
+            "pct": 36.78
+          },
+          "Комплектации и опции": {
+            "count": 3672,
+            "pct": 28.55
+          },
+          "Автокредит": {
+            "count": 5087,
+            "pct": 39.55
+          },
+          "Трейд-ин": {
+            "count": 4235,
+            "pct": 32.93
+          },
+          "Запись в дилерский центр": {
+            "count": 11344,
+            "pct": 88.2
+          },
+          "Статус заявки": {
+            "count": 3273,
+            "pct": 25.45
+          },
+          "Отказ / отмена": {
+            "count": 2346,
+            "pct": 18.24
+          },
+          "Сравнение с конкурентами": {
+            "count": 1705,
+            "pct": 13.26
+          }
+        },
+        "themes_other": {
+          "count": 536,
+          "pct": 4.17
+        },
+        "dissatisfaction": {
+          "Цена выше ожиданий": {
+            "count": 1393,
+            "pct": 10.83
+          },
+          "Отсутствие автомобиля в наличии": {
+            "count": 311,
+            "pct": 2.42
+          },
+          "Долгий срок поставки": {
+            "count": 87,
+            "pct": 0.68
+          },
+          "Нет нужной комплектации": {
+            "count": 9,
+            "pct": 0.07
+          },
+          "Неоднозначные условия кредита": {
+            "count": 352,
+            "pct": 2.74
+          },
+          "Навязывание доп.услуг": {
+            "count": 238,
+            "pct": 1.85
+          },
+          "Конкуренты предлагают лучше": {
+            "count": 120,
+            "pct": 0.93
+          },
+          "Недостаточная компетентность": {
+            "count": 646,
+            "pct": 5.02
+          },
+          "Проблемы с сайтом": {
+            "count": 1203,
+            "pct": 9.35
+          }
+        },
+        "objections": {
+          "Дорого": {
+            "count": 1389,
+            "pct": 10.8
+          },
+          "Долго ждать": {
+            "count": 2154,
+            "pct": 16.75
+          },
+          "Нет нужной комплектации": {
+            "count": 9,
+            "pct": 0.07
+          },
+          "Конкуренты предлагают выгоднее": {
+            "count": 1433,
+            "pct": 11.14
+          },
+          "Я подумаю": {
+            "count": 2223,
+            "pct": 17.28
+          },
+          "Не сейчас": {
+            "count": 5633,
+            "pct": 43.8
+          },
+          "Хочу другой бренд / модель": {
+            "count": 40,
+            "pct": 0.31
+          },
+          "Не устраивают условия кредита": {
+            "count": 228,
+            "pct": 1.77
+          }
+        },
+        "quality": {
+          "Пропадает связь": {
+            "count": 65,
+            "pct": 0.51
+          },
+          "Плохая слышимость": {
+            "count": 715,
+            "pct": 5.56
+          },
+          "Неуверенная речь": {
+            "count": 3441,
+            "pct": 26.75
+          },
+          "Быстрый темп речи": {
+            "count": 13,
+            "pct": 0.1
+          },
+          "Перебивание клиента": {
+            "count": 8,
+            "pct": 0.06
+          },
+          "Длинные паузы": {
+            "count": 10249,
+            "pct": 79.68
+          },
+          "Нет фиксации следующего шага": {
+            "count": 1367,
+            "pct": 10.63
+          }
+        },
+        "long_calls": {
+          "total": 5289,
+          "reasons": {
+            "Нет актуального наличия авто": {
+              "count": 748,
+              "pct": 14.14
+            },
+            "Несовпадение цены на сайте": {
+              "count": 1064,
+              "pct": 20.12
+            },
+            "Сложное объяснение кредитных условий": {
+              "count": 3468,
+              "pct": 65.57
+            },
+            "Ручной расчёт кредита": {
+              "count": 1348,
+              "pct": 25.49
+            },
+            "Нет чёткого сценария консультации": {
+              "count": 1234,
+              "pct": 23.33
+            }
+          }
+        },
+        "model_objections": {
+          "UNI-S (CS55 Plus)": {
+            "price": 294,
+            "availability": 307,
+            "total": 1426
+          },
+          "CS35 Plus": {
+            "price": 157,
+            "availability": 151,
+            "total": 768
+          },
+          "UNI-V": {
+            "price": 72,
+            "availability": 103,
+            "total": 526
+          },
+          "CS75 Plus": {
+            "price": 86,
+            "availability": 82,
+            "total": 506
+          },
+          "UNI-K": {
+            "price": 64,
+            "availability": 91,
+            "total": 495
+          },
+          "Hunter Plus": {
+            "price": 65,
+            "availability": 73,
+            "total": 429
+          }
+        },
+        "operator_ranking": [
+          {
+            "operator": "Не определен",
+            "problem_calls": 5631,
+            "total_calls": 6906,
+            "share": 81.54
+          },
+          {
+            "operator": "Елена",
+            "problem_calls": 183,
+            "total_calls": 210,
+            "share": 87.14
+          },
+          {
+            "operator": "Анастасия",
+            "problem_calls": 162,
+            "total_calls": 174,
+            "share": 93.1
+          },
+          {
+            "operator": "Сергей",
+            "problem_calls": 146,
+            "total_calls": 153,
+            "share": 95.42
+          },
+          {
+            "operator": "Лиля",
+            "problem_calls": 145,
+            "total_calls": 151,
+            "share": 96.03
+          },
+          {
+            "operator": "Наталья",
+            "problem_calls": 138,
+            "total_calls": 141,
+            "share": 97.87
+          },
+          {
+            "operator": "Екатерина",
+            "problem_calls": 137,
+            "total_calls": 159,
+            "share": 86.16
+          },
+          {
+            "operator": "Татьяна",
+            "problem_calls": 130,
+            "total_calls": 150,
+            "share": 86.67
+          },
+          {
+            "operator": "Диана",
+            "problem_calls": 129,
+            "total_calls": 130,
+            "share": 99.23
+          },
+          {
+            "operator": "Виктория",
+            "problem_calls": 129,
+            "total_calls": 141,
+            "share": 91.49
+          }
+        ]
+      };
+
+      const palette = {
+        accents: ["#ff3b3b", "#ff6b6b", "#f1f5f9", "#cbd5e1", "#94a3b8", "#6b7280"],
+        muted: "#8a9099",
+        grid: "rgba(255, 255, 255, 0.08)",
+      };
+
+      Chart.defaults.color = "#e6e9ef";
+      Chart.defaults.font.family = "Inter, Arial, sans-serif";
+      Chart.defaults.borderColor = palette.grid;
+
+      const formatNumber = (value) =>
+        Number(value).toLocaleString("ru-RU", { maximumFractionDigits: 2 });
+      const formatPercent = (value) =>
+        `${Number(value).toLocaleString("ru-RU", { maximumFractionDigits: 2 })}%`;
+
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+
+      setText("statTotalRows", formatNumber(reportData.total_rows));
+      setText("statWithText", formatNumber(reportData.total_with_text));
+      setText("statNewCarCalls", formatNumber(reportData.new_car_calls));
+      setText("statAvgDuration", formatNumber(reportData.avg_duration));
+      setText("avgDurationInline", formatNumber(reportData.avg_duration));
+      setText("statNewCarInline", `${formatNumber(reportData.new_car_calls)}`);
+      setText("statTotalInline", `${formatNumber(reportData.total_rows)}`);
+      setText("statTextInline", `${formatNumber(reportData.total_with_text)}`);
+      setText("problemShare", formatPercent(reportData.problem_calls_share));
+      setText("longCallsTotal", formatNumber(reportData.long_calls.total));
+
+      const themes = Object.entries(reportData.themes).map(([label, item]) => ({
+        label,
+        count: item.count,
+        pct: item.pct,
+      }));
+      themes.push({
+        label: "Прочее",
+        count: reportData.themes_other.count,
+        pct: reportData.themes_other.pct,
+      });
+
+      const buildTable = (containerId, rows) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        thead.innerHTML = "<tr><th>Категория</th><th>Звонки</th><th>%</th></tr>";
+        const tbody = document.createElement("tbody");
+        rows.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${row.label}</td><td>${formatNumber(row.count)}</td><td>${formatPercent(row.pct)}</td>`;
+          tbody.appendChild(tr);
+        });
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        container.innerHTML = "";
+        container.appendChild(table);
+      };
+
+      buildTable("themesTable", themes.sort((a, b) => b.count - a.count));
+
+      const dissatRows = Object.entries(reportData.dissatisfaction).map(([label, item]) => ({
+        label,
+        count: item.count,
+        pct: item.pct,
+      }));
+      buildTable("dissatisfactionTable", dissatRows.sort((a, b) => b.count - a.count));
+
+      const objectionsRows = Object.entries(reportData.objections).map(([label, item]) => ({
+        label,
+        count: item.count,
+        pct: item.pct,
+      }));
+      buildTable("objectionsTable", objectionsRows.sort((a, b) => b.count - a.count));
+
+      const qualityRows = Object.entries(reportData.quality).map(([label, item]) => ({
+        label,
+        count: item.count,
+        pct: item.pct,
+      }));
+      buildTable("qualityTable", qualityRows.sort((a, b) => b.count - a.count));
+
+      const longRows = Object.entries(reportData.long_calls.reasons).map(([label, item]) => ({
+        label,
+        count: item.count,
+        pct: item.pct,
+      }));
+      buildTable("longCallsTable", longRows.sort((a, b) => b.count - a.count));
+
+      const modelRows = Object.entries(reportData.model_objections).map(([label, item]) => ({
+        label,
+        count: item.total,
+        price: item.price,
+        availability: item.availability,
+      }));
+      const modelTable = document.getElementById("modelTable");
+      if (modelTable) {
+        const table = document.createElement("table");
+        table.innerHTML =
+          "<thead><tr><th>Модель</th><th>Всего</th><th>Цена</th><th>Наличие</th></tr></thead>";
+        const tbody = document.createElement("tbody");
+        modelRows.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${row.label}</td><td>${formatNumber(row.count)}</td><td>${formatNumber(
+            row.price
+          )}</td><td>${formatNumber(row.availability)}</td>`;
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        modelTable.innerHTML = "";
+        modelTable.appendChild(table);
+      }
+
+      const operatorsTable = document.getElementById("operatorsTable");
+      if (operatorsTable) {
+        const table = document.createElement("table");
+        table.innerHTML =
+          "<thead><tr><th>Оператор</th><th>Проблемные</th><th>Всего</th><th>%</th></tr></thead>";
+        const tbody = document.createElement("tbody");
+        reportData.operator_ranking.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${row.operator}</td><td>${formatNumber(
+            row.problem_calls
+          )}</td><td>${formatNumber(row.total_calls)}</td><td>${formatPercent(row.share)}</td>`;
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        operatorsTable.innerHTML = "";
+        operatorsTable.appendChild(table);
+      }
+
+      const topObjections = [...objectionsRows].sort((a, b) => b.count - a.count).slice(0, 5);
+      const topList = document.getElementById("objectionsTopList");
+      if (topList) {
+        topList.innerHTML = "";
+        topObjections.forEach((row) => {
+          const li = document.createElement("li");
+          li.textContent = `${row.label} — ${formatNumber(row.count)} (${formatPercent(row.pct)})`;
+          topList.appendChild(li);
+        });
+      }
+
+      const getTheme = (label) => reportData.themes[label] || { count: 0, pct: 0 };
+      const getQuality = (label) => reportData.quality[label] || { count: 0, pct: 0 };
+      const getLong = (label) => reportData.long_calls.reasons[label] || { count: 0, pct: 0 };
+      const getObj = (label) => reportData.objections[label] || { count: 0, pct: 0 };
+      const getDissat = (label) => reportData.dissatisfaction[label] || { count: 0, pct: 0 };
+
+      setText("themePriceDominant", `${formatNumber(getTheme("Цена / скидки / акции").count)} (${formatPercent(getTheme("Цена / скидки / акции").pct)})`);
+      setText("themeCreditDominant", `${formatNumber(getTheme("Автокредит").count)} (${formatPercent(getTheme("Автокредит").pct)})`);
+      setText("themeDeliveryDominant", `${formatNumber(getTheme("Сроки поставки").count)} (${formatPercent(getTheme("Сроки поставки").pct)})`);
+
+      setText("themePrice", `${formatNumber(getTheme("Цена / скидки / акции").count)} звонков`);
+      setText("themeStock", `${formatNumber(getTheme("Наличие автомобиля").count)} звонков`);
+      setText("themeCredit", `${formatNumber(getTheme("Автокредит").count)} звонков`);
+      setText("qualityPauses", `${formatNumber(getQuality("Длинные паузы").count)} (${formatPercent(getQuality("Длинные паузы").pct)})`);
+      setText("longManualCredit", `${formatNumber(getLong("Ручной расчёт кредита").count)} (${formatPercent(getLong("Ручной расчёт кредита").pct)})`);
+      setText("qualityNoNext", `${formatNumber(getQuality("Нет фиксации следующего шага").count)} (${formatPercent(getQuality("Нет фиксации следующего шага").pct)})`);
+
+      setText("lossPrice", `${formatNumber(getDissat("Цена выше ожиданий").count)} (${formatPercent(getDissat("Цена выше ожиданий").pct)})`);
+      setText("lossStock", `${formatNumber(getDissat("Отсутствие автомобиля в наличии").count)} (${formatPercent(getDissat("Отсутствие автомобиля в наличии").pct)})`);
+      setText("lossDelivery", `${formatNumber(getDissat("Долгий срок поставки").count)} (${formatPercent(getDissat("Долгий срок поставки").pct)})`);
+      setText("lossTrim", `${formatNumber(getDissat("Нет нужной комплектации").count)} (${formatPercent(getDissat("Нет нужной комплектации").pct)})`);
+      setText("lossCredit", `${formatNumber(getDissat("Неоднозначные условия кредита").count)} (${formatPercent(getDissat("Неоднозначные условия кредита").pct)})`);
+
+      setText("longManual", `${formatNumber(getLong("Ручной расчёт кредита").count)} (${formatPercent(getLong("Ручной расчёт кредита").pct)})`);
+      setText("longStock", `${formatNumber(getLong("Нет актуального наличия авто").count)} (${formatPercent(getLong("Нет актуального наличия авто").pct)})`);
+      setText("longSitePrice", `${formatNumber(getLong("Несовпадение цены на сайте").count)} (${formatPercent(getLong("Несовпадение цены на сайте").pct)})`);
+      setText("longNoScript", `${formatNumber(getLong("Нет чёткого сценария консультации").count)} (${formatPercent(getLong("Нет чёткого сценария консультации").pct)})`);
+      setText("longCreditExplain", `${formatNumber(getLong("Сложное объяснение кредитных условий").count)} (${formatPercent(getLong("Сложное объяснение кредитных условий").pct)})`);
+
+      setText("critPrice", `${formatNumber(getTheme("Цена / скидки / акции").count)} звонков`);
+      setText("critNext", `${formatNumber(getQuality("Нет фиксации следующего шага").count)} звонков`);
+      setText("critCredit", `${formatNumber(getTheme("Автокредит").count)} звонков`);
+
+      // Charts
+      const themeLabels = themes.map((item) => item.label);
+      const themeCounts = themes.map((item) => item.count);
+      new Chart(document.getElementById("themesPie"), {
+        type: "pie",
+        data: {
+          labels: themeLabels,
+          datasets: [
+            {
+              data: themeCounts,
+              backgroundColor: [
+                "#ff3b3b",
+                "#ff6b6b",
+                "#ffffff",
+                "#cbd5e1",
+                "#94a3b8",
+                "#6b7280",
+                "#4b5563",
+                "#374151",
+                "#1f2937",
+                "#111827",
+                "#0b0c0f",
+              ],
+              borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              position: "right",
+              labels: { boxWidth: 12, boxHeight: 12 },
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const pct = themes[ctx.dataIndex]?.pct ?? 0;
+                  return `${ctx.label}: ${formatNumber(ctx.raw)} (${formatPercent(pct)})`;
+                },
+              },
+            },
+          },
+        },
+      });
+
+      const dissatLabels = dissatRows.map((item) => item.label);
+      const dissatCounts = dissatRows.map((item) => item.count);
+      new Chart(document.getElementById("dissatisfactionBar"), {
+        type: "bar",
+        data: {
+          labels: dissatLabels,
+          datasets: [
+            {
+              label: "Звонки",
+              data: dissatCounts,
+              backgroundColor: "#cbd5e1",
+              borderRadius: 8,
+            },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          scales: {
+            x: { grid: { color: palette.grid } },
+            y: { grid: { display: false } },
+          },
+          plugins: { legend: { display: false } },
+        },
+      });
+
+      const objLabels = objectionsRows.map((item) => item.label);
+      const objCounts = objectionsRows.map((item) => item.count);
+      new Chart(document.getElementById("objectionsBar"), {
+        type: "bar",
+        data: {
+          labels: objLabels,
+          datasets: [
+            {
+              label: "Звонки",
+              data: objCounts,
+              backgroundColor: "#ff6b6b",
+              borderRadius: 8,
+            },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          scales: {
+            x: { grid: { color: palette.grid } },
+            y: { grid: { display: false } },
+          },
+          plugins: { legend: { display: false } },
+        },
+      });
+
+      const qualLabels = qualityRows.map((item) => item.label);
+      const qualCounts = qualityRows.map((item) => item.count);
+      new Chart(document.getElementById("qualityBar"), {
+        type: "bar",
+        data: {
+          labels: qualLabels,
+          datasets: [
+            {
+              label: "Звонки",
+              data: qualCounts,
+              backgroundColor: "#94a3b8",
+              borderRadius: 8,
+            },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          scales: {
+            x: { grid: { color: palette.grid } },
+            y: { grid: { display: false } },
+          },
+          plugins: { legend: { display: false } },
+        },
+      });
+
+      const longLabels = longRows.map((item) => item.label);
+      const operationalReasons = [
+        "Сложное объяснение кредитных условий",
+        "Ручной расчёт кредита",
+        "Нет чёткого сценария консультации",
+      ];
+      const infoReasons = ["Нет актуального наличия авто", "Несовпадение цены на сайте"];
+      const operationalValues = longRows.map((row) =>
+        operationalReasons.includes(row.label) ? row.count : 0
+      );
+      const infoValues = longRows.map((row) => (infoReasons.includes(row.label) ? row.count : 0));
+
+      new Chart(document.getElementById("longCallsStacked"), {
+        type: "bar",
+        data: {
+          labels: longLabels,
+          datasets: [
+            {
+              label: "Процесс",
+              data: operationalValues,
+              backgroundColor: "#f1f5f9",
+              borderRadius: 6,
+              stack: "stack1",
+            },
+            {
+              label: "Информация",
+              data: infoValues,
+              backgroundColor: "#ff3b3b",
+              borderRadius: 6,
+              stack: "stack1",
+            },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          scales: {
+            x: { grid: { color: palette.grid } },
+            y: { grid: { display: false } },
+          },
+        },
+      });
+
+      const modelLabels = modelRows.map((row) => row.label);
+      const modelPrice = modelRows.map((row) => row.price);
+      const modelAvailability = modelRows.map((row) => row.availability);
+      if (modelLabels.length) {
+        new Chart(document.getElementById("modelObjections"), {
+          type: "bar",
+          data: {
+            labels: modelLabels,
+            datasets: [
+              {
+                label: "Цена",
+                data: modelPrice,
+                backgroundColor: "#ff6b6b",
+                borderRadius: 6,
+                stack: "stack1",
+              },
+              {
+                label: "Наличие / ожидание",
+                data: modelAvailability,
+                backgroundColor: "#cbd5e1",
+                borderRadius: 6,
+                stack: "stack1",
+              },
+            ],
+          },
+          options: {
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: palette.grid } },
+            },
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
