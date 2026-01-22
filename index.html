@@ -51,7 +51,7 @@
           <div class="avatar-player__media">
             <video
               id="avatarMedia"
-              data-public-url="https://disk.yandex.ru/i/TVI7ygj8vSkJlw"
+              src="avatar.mp4"
               preload="metadata"
               playsinline
             ></video>
@@ -898,30 +898,6 @@
       };
 
       if (media && playPauseBtn) {
-        const ensureMediaSource = async () => {
-          if (media.getAttribute("src")) return true;
-          const publicUrl = media.dataset.publicUrl;
-          if (!publicUrl) return false;
-          if (playStatus) playStatus.textContent = "Загружаю видео...";
-          try {
-            const response = await fetch(
-              `https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=${encodeURIComponent(
-                publicUrl
-              )}`
-            );
-            if (!response.ok) throw new Error("download-link-error");
-            const data = await response.json();
-            if (!data.href) throw new Error("download-link-missing");
-            media.src = data.href;
-            media.load();
-            return true;
-          } catch (err) {
-            if (playStatus) {
-              playStatus.textContent = "Не удалось загрузить видео. Проверьте доступ по ссылке.";
-            }
-            return false;
-          }
-        };
         const setButtonState = (state) => {
           playPauseBtn.setAttribute("aria-label", state === "playing" ? "Stop" : "Play");
           const icon = playPauseBtn.querySelector("svg path");
@@ -933,12 +909,9 @@
           }
         };
 
-        playPauseBtn.addEventListener("click", async () => {
+        playPauseBtn.addEventListener("click", () => {
           if (media.paused) {
-            const ready = await ensureMediaSource();
-            if (ready) {
-              media.play();
-            }
+            media.play();
           } else {
             media.pause();
             media.currentTime = 0;

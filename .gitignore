@@ -2,4 +2,4 @@ calls.csv
 figma_brand.json
 .DS_Store
 *.mp4
-*.mp4
+!avatar.mp4
