@@ -51,7 +51,7 @@
           <div class="avatar-player__media">
             <video
               id="avatarMedia"
-              src="https://downloader.disk.yandex.ru/disk/f5893985d1d418ff32ee227e8a745430d153a6e5dd397434446a69017ee5bf47/6971518b/PCY-XhIXj0oMzMwaY9rwFwSyC7OhCARhoRZ8p2l9OuPuG7yc1dcWOuFsn7WhizmBbL9SoIQD0fMsUGd00z_6AA%3D%3D?uid=0&filename=%D0%B0%D1%80%D0%B1%20%D0%B4%D0%B8%D1%81%D1%82%D1%80%D1%8B.mp4&disposition=attachment&hash=raU%2BUJnkO2L6Wk5DQeITy50M/Iof%2BCxZZWKjAjDETXX%2Biw%2Bsni3TNo3i7WyghS4Dq/J6bpmRyOJonT3VoXnDag%3D%3D%3A&limit=0&content_type=video%2Fmp4&owner_uid=570521544&fsize=169702518&hid=22a90539975a302a6358d5097d84c4f5&media_type=video%2Fmp4&tknv=v3"
+              data-public-url="https://disk.yandex.ru/i/TVI7ygj8vSkJlw"
               preload="metadata"
               playsinline
             ></video>
@@ -898,6 +898,30 @@
       };
 
       if (media && playPauseBtn) {
+        const ensureMediaSource = async () => {
+          if (media.getAttribute("src")) return true;
+          const publicUrl = media.dataset.publicUrl;
+          if (!publicUrl) return false;
+          if (playStatus) playStatus.textContent = "Загружаю видео...";
+          try {
+            const response = await fetch(
+              `https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=${encodeURIComponent(
+                publicUrl
+              )}`
+            );
+            if (!response.ok) throw new Error("download-link-error");
+            const data = await response.json();
+            if (!data.href) throw new Error("download-link-missing");
+            media.src = data.href;
+            media.load();
+            return true;
+          } catch (err) {
+            if (playStatus) {
+              playStatus.textContent = "Не удалось загрузить видео. Проверьте доступ по ссылке.";
+            }
+            return false;
+          }
+        };
         const setButtonState = (state) => {
           playPauseBtn.setAttribute("aria-label", state === "playing" ? "Stop" : "Play");
           const icon = playPauseBtn.querySelector("svg path");
@@ -909,9 +933,12 @@
           }
         };
 
-        playPauseBtn.addEventListener("click", () => {
+        playPauseBtn.addEventListener("click", async () => {
           if (media.paused) {
-            media.play();
+            const ready = await ensureMediaSource();
+            if (ready) {
+              media.play();
+            }
           } else {
             media.pause();
             media.currentTime = 0;
@@ -930,6 +957,10 @@
           playPauseBtn.textContent = "Play";
           if (playStatus) playStatus.textContent = "Готово к воспроизведению";
           clearHighlights();
+        });
+
+        media.addEventListener("error", () => {
+          if (playStatus) playStatus.textContent = "Ошибка воспроизведения видео.";
         });
 
         media.addEventListener("timeupdate", () => {
