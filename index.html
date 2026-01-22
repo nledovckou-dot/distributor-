@@ -12,7 +12,7 @@
       <div class="decor decor--two"></div>
       <div class="decor decor--three"></div>
       <div class="decor decor--four"></div>
-      <header class="hero">
+      <header class="hero" id="section-intro">
         <div class="hero__overlay"></div>
         <img class="hero__image" src="brand-cover.png" alt="3D-рендер автомобиля" />
         <div class="hero__content">
@@ -47,10 +47,29 @@
             </div>
           </div>
         </div>
-        <img class="hero__vector" src="vector-1.svg" alt="" />
+        <div class="avatar-player avatar-player--hero" aria-label="Аватар с озвучкой">
+          <div class="avatar-player__media">
+            <video
+              id="avatarMedia"
+              src="https://downloader.disk.yandex.ru/disk/f5893985d1d418ff32ee227e8a745430d153a6e5dd397434446a69017ee5bf47/6971518b/PCY-XhIXj0oMzMwaY9rwFwSyC7OhCARhoRZ8p2l9OuPuG7yc1dcWOuFsn7WhizmBbL9SoIQD0fMsUGd00z_6AA%3D%3D?uid=0&filename=%D0%B0%D1%80%D0%B1%20%D0%B4%D0%B8%D1%81%D1%82%D1%80%D1%8B.mp4&disposition=attachment&hash=raU%2BUJnkO2L6Wk5DQeITy50M/Iof%2BCxZZWKjAjDETXX%2Biw%2Bsni3TNo3i7WyghS4Dq/J6bpmRyOJonT3VoXnDag%3D%3D%3A&limit=0&content_type=video%2Fmp4&owner_uid=570521544&fsize=169702518&hid=22a90539975a302a6358d5097d84c4f5&media_type=video%2Fmp4&tknv=v3"
+              preload="metadata"
+              playsinline
+            ></video>
+          </div>
+          <div class="avatar-player__controls">
+            <button id="playPauseBtn" class="btn btn--icon" type="button" aria-label="Play">
+              <span class="btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+              </span>
+            </button>
+            <span class="avatar-player__status" id="playStatus">Готово к воспроизведению</span>
+          </div>
+        </div>
       </header>
 
-      <section class="section section--notice">
+      <section class="section section--notice" id="section-notice">
         <div class="notice">
           <h2>Ограничения данных</h2>
           <p>
@@ -63,7 +82,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-1">
         <div class="section__head">
           <h2>1. Темы обращений клиентов по новым автомобилям</h2>
           <p>Классификация тем по интенсивности упоминаний в видимых диалогах.</p>
@@ -93,7 +112,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-2">
         <div class="section__head">
           <h2>2. Причины недовольства клиентов (только новые авто)</h2>
           <p>Причины, которые реально подтверждаются в тексте расшифровок.</p>
@@ -127,7 +146,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-3">
         <div class="section__head">
           <h2>3. Типы возражений клиентов</h2>
           <p>Возражения, выделенные из реальных формулировок клиентов.</p>
@@ -156,7 +175,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-4">
         <div class="section__head">
           <h2>4. Возражения в разрезе моделей / брендов</h2>
           <p>Сравнение проблем цены и доступности по моделям (если модель указана).</p>
@@ -181,7 +200,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-5">
         <div class="section__head">
           <h2>5. Качество коммуникации операторов / менеджеров</h2>
           <p>Проблемы фиксировались по временным меткам и тексту диалогов.</p>
@@ -229,7 +248,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-6">
         <div class="section__head">
           <h2>6. Причины длинных и неэффективных звонков</h2>
           <p>Факторы, повышающие длительность и нагрузку на операторов.</p>
@@ -263,7 +282,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-7">
         <div class="section__head">
           <h2>7. Дополнительные связи для управленческих решений</h2>
           <p>Каскады проблем, выявленные в текстах диалогов.</p>
@@ -295,7 +314,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-8">
         <div class="section__head">
           <h2>8. Итоговые управленческие выводы</h2>
           <p>Сводные управленческие приоритеты, основанные на видимых данных.</p>
@@ -339,7 +358,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="section-9">
         <div class="section__head">
           <h2>9. Рекомендации</h2>
           <p>Приоритетные действия для роста конверсии звонок → визит.</p>
@@ -373,7 +392,7 @@
         </div>
       </section>
 
-      <section class="section section--footer">
+      <section class="section section--footer" id="section-final">
         <div class="footer">
           <div>
             <h2>Контекст</h2>
@@ -699,6 +718,229 @@
       setText("problemShare", formatPercent(reportData.problem_calls_share));
       setText("longCallsTotal", formatNumber(reportData.long_calls.total));
 
+      const highlightRegistry = {};
+      const registerHighlight = (key, element) => {
+        if (!element || !key) return;
+        highlightRegistry[key] = highlightRegistry[key] || [];
+        highlightRegistry[key].push(element);
+      };
+
+      const ensureBadge = () => {
+        const notice = document.querySelector("#section-notice .notice");
+        if (!notice) return;
+        let badge = document.getElementById("badgeNewCars");
+        if (!badge) {
+          badge = document.createElement("span");
+          badge.id = "badgeNewCars";
+          badge.className = "badge";
+          badge.textContent = "Только новые авто";
+          notice.appendChild(badge);
+        }
+        badge.dataset.key = "badge-new-cars";
+      };
+
+      const ensureSummary = () => {
+        const summaryList = document.querySelector("#section-1 .card:last-child .list");
+        if (!summaryList) return;
+        const items = Array.from(summaryList.querySelectorAll("li"));
+        if (items.length < 4) {
+          const li = document.createElement("li");
+          li.textContent = "И ключевой фильтр: наличие";
+          summaryList.appendChild(li);
+        }
+        const updatedItems = Array.from(summaryList.querySelectorAll("li"));
+        if (updatedItems[0]) updatedItems[0].dataset.key = "summary-price";
+        if (updatedItems[1]) updatedItems[1].dataset.key = "summary-credit";
+        if (updatedItems[2]) updatedItems[2].dataset.key = "summary-delivery";
+        if (updatedItems[3]) updatedItems[3].dataset.key = "summary-stock";
+
+        let stockSpan = document.getElementById("themeStockSummary");
+        if (!stockSpan && updatedItems[3]) {
+          stockSpan = document.createElement("span");
+          stockSpan.id = "themeStockSummary";
+          stockSpan.className = "mono";
+          updatedItems[3].append(" (", stockSpan, ")");
+        }
+      };
+
+      const ensureRecommendations = () => {
+        const list = document.querySelector("#section-9 .card:first-child .list");
+        if (!list) return;
+        const items = [
+          { key: "rec-credit", text: "Удобный расчет кредита." },
+          { key: "rec-stock", text: "Синхронизация наличия на сайте." },
+          { key: "rec-next", text: "Фиксация следующего шага." },
+          { key: "rec-objections", text: "Четкие ответы на «дорого», «не сейчас», «долго ждать»." },
+        ];
+        list.innerHTML = "";
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.dataset.key = item.key;
+          li.textContent = item.text;
+          list.appendChild(li);
+        });
+      };
+
+      const tagListByKeywords = (selector, map) => {
+        const list = document.querySelector(selector);
+        if (!list) return;
+        list.querySelectorAll("li").forEach((li) => {
+          const text = li.textContent.toLowerCase();
+          Object.entries(map).forEach(([key, keyword]) => {
+            if (text.includes(keyword)) li.dataset.key = key;
+          });
+        });
+      };
+
+      ensureBadge();
+      ensureSummary();
+      ensureRecommendations();
+
+      const parseTime = (value) => {
+        const [min, sec] = value.split(":").map(Number);
+        return min * 60 + sec;
+      };
+
+      const segments = [
+        { label: "Вступление", start: parseTime("0:00"), end: parseTime("0:05"), sectionId: "section-intro", highlights: [] },
+        { label: "Фокус", start: parseTime("0:05"), end: parseTime("0:10"), sectionId: "section-notice", highlights: ["badge-new-cars"] },
+        { label: "Темы: запись", start: parseTime("0:10"), end: parseTime("0:14"), sectionId: "section-1", highlights: ["theme-booking"] },
+        { label: "Темы: цена", start: parseTime("0:14"), end: parseTime("0:17"), sectionId: "section-1", highlights: ["theme-price"] },
+        { label: "Темы: кредит", start: parseTime("0:17"), end: parseTime("0:19"), sectionId: "section-1", highlights: ["theme-credit"] },
+        { label: "Темы: сроки", start: parseTime("0:19"), end: parseTime("0:21"), sectionId: "section-1", highlights: ["theme-delivery"] },
+        { label: "Темы: трейд-ин", start: parseTime("0:21"), end: parseTime("0:23"), sectionId: "section-1", highlights: ["theme-tradein"] },
+        { label: "Темы: комплектации", start: parseTime("0:23"), end: parseTime("0:24"), sectionId: "section-1", highlights: ["theme-trim"] },
+        { label: "Темы: наличие", start: parseTime("0:24"), end: parseTime("0:25"), sectionId: "section-1", highlights: ["theme-stock"] },
+        { label: "Итог по темам", start: parseTime("0:25"), end: parseTime("0:30"), sectionId: "section-1", highlights: ["summary-price", "summary-credit", "summary-delivery", "summary-stock"] },
+        { label: "Недовольство: дорого", start: parseTime("0:30"), end: parseTime("0:34"), sectionId: "section-2", highlights: ["dissat-expensive"] },
+        { label: "Недовольство: сайт", start: parseTime("0:34"), end: parseTime("0:38"), sectionId: "section-2", highlights: ["dissat-site"] },
+        { label: "Недовольство: консультация", start: parseTime("0:38"), end: parseTime("0:42"), sectionId: "section-2", highlights: ["dissat-consult"] },
+        { label: "Возражения: не сейчас", start: parseTime("0:42"), end: parseTime("0:44"), sectionId: "section-3", highlights: ["obj-not-now"] },
+        { label: "Возражения: подумаю", start: parseTime("0:44"), end: parseTime("0:46"), sectionId: "section-3", highlights: ["obj-think"] },
+        { label: "Возражения: долго ждать", start: parseTime("0:46"), end: parseTime("0:47"), sectionId: "section-3", highlights: ["obj-wait"] },
+        { label: "Возражения: конкуренты", start: parseTime("0:47"), end: parseTime("0:48"), sectionId: "section-3", highlights: ["obj-competitors"] },
+        { label: "Возражения: дорого", start: parseTime("0:48"), end: parseTime("0:49"), sectionId: "section-3", highlights: ["obj-expensive"] },
+        { label: "Итог по возражениям", start: parseTime("0:49"), end: parseTime("0:56"), sectionId: "section-3", highlights: ["objectionsTopList"] },
+        { label: "Модели: цена", start: parseTime("0:56"), end: parseTime("1:00"), sectionId: "section-4", highlights: ["model-price"] },
+        { label: "Модели: наличие", start: parseTime("1:00"), end: parseTime("1:04"), sectionId: "section-4", highlights: ["model-availability"] },
+        { label: "Модели: UNI-S", start: parseTime("1:04"), end: parseTime("1:06"), sectionId: "section-4", highlights: ["model-uni-s"] },
+        { label: "Качество: паузы", start: parseTime("1:06"), end: parseTime("1:10"), sectionId: "section-5", highlights: ["quality-pauses"] },
+        { label: "Качество: неуверенность", start: parseTime("1:10"), end: parseTime("1:13"), sectionId: "section-5", highlights: ["quality-uncertain"] },
+        { label: "Качество: следующий шаг", start: parseTime("1:13"), end: parseTime("1:16"), sectionId: "section-5", highlights: ["quality-next"] },
+        { label: "Длинные: кредит", start: parseTime("1:16"), end: parseTime("1:21"), sectionId: "section-6", highlights: ["long-credit"] },
+        { label: "Длинные: ручные расчеты", start: parseTime("1:21"), end: parseTime("1:24"), sectionId: "section-6", highlights: ["long-manual"] },
+        { label: "Длинные: расхождение цен", start: parseTime("1:24"), end: parseTime("1:27"), sectionId: "section-6", highlights: ["long-site"] },
+        { label: "Длинные: нет сценария", start: parseTime("1:27"), end: parseTime("1:30"), sectionId: "section-6", highlights: ["long-noscript"] },
+        { label: "Связка: цена", start: parseTime("1:30"), end: parseTime("1:34"), sectionId: "section-7", highlights: ["chain-price"] },
+        { label: "Связка: наличие", start: parseTime("1:34"), end: parseTime("1:38"), sectionId: "section-7", highlights: ["chain-stock"] },
+        { label: "Связка: кредит", start: parseTime("1:38"), end: parseTime("1:42"), sectionId: "section-7", highlights: ["chain-credit"] },
+        { label: "Потери: цена", start: parseTime("1:42"), end: parseTime("1:44"), sectionId: "section-8", highlights: ["loss-price"] },
+        { label: "Потери: наличие", start: parseTime("1:44"), end: parseTime("1:46"), sectionId: "section-8", highlights: ["loss-stock"] },
+        { label: "Потери: сроки", start: parseTime("1:46"), end: parseTime("1:48"), sectionId: "section-8", highlights: ["loss-delivery"] },
+        { label: "Потери: комплектация", start: parseTime("1:48"), end: parseTime("1:50"), sectionId: "section-8", highlights: ["loss-trim"] },
+        { label: "Потери: кредит", start: parseTime("1:50"), end: parseTime("1:52"), sectionId: "section-8", highlights: ["loss-credit"] },
+        { label: "Рекомендации: кредит", start: parseTime("1:52"), end: parseTime("1:56"), sectionId: "section-9", highlights: ["rec-credit"] },
+        { label: "Рекомендации: наличие", start: parseTime("1:56"), end: parseTime("2:00"), sectionId: "section-9", highlights: ["rec-stock"] },
+        { label: "Рекомендации: следующий шаг", start: parseTime("2:00"), end: parseTime("2:03"), sectionId: "section-9", highlights: ["rec-next"] },
+        { label: "Рекомендации: ответы", start: parseTime("2:03"), end: parseTime("2:05"), sectionId: "section-9", highlights: ["rec-objections"] },
+        { label: "Финал", start: parseTime("2:05"), end: parseTime("2:10"), sectionId: "section-final", highlights: [] },
+      ];
+      const activeTimeline = segments;
+
+      const media = document.getElementById("avatarMedia");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const playStatus = document.getElementById("playStatus");
+      let activeIndex = -1;
+
+      const clearHighlights = () => {
+        document.querySelectorAll(".section.is-active, .hero.is-active").forEach((el) => {
+          el.classList.remove("is-active");
+        });
+        document.querySelectorAll(".is-highlight").forEach((el) => {
+          el.classList.remove("is-highlight");
+        });
+      };
+
+      const highlightByKey = (key) => {
+        if (!key) return;
+        const direct = document.querySelectorAll(`[data-key="${key}"]`);
+        direct.forEach((el) => el.classList.add("is-highlight"));
+        const byId = document.getElementById(key);
+        if (byId) byId.classList.add("is-highlight");
+        const registry = highlightRegistry[key] || [];
+        registry.forEach((el) => el.classList.add("is-highlight"));
+      };
+
+      const applySegment = (index) => {
+        if (index === activeIndex) return;
+        activeIndex = index;
+        clearHighlights();
+        const segment = activeTimeline[index];
+        if (!segment) return;
+        const section = document.getElementById(segment.sectionId);
+        if (section) {
+          section.classList.add("is-active");
+          if (media && !media.paused) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+        segment.highlights.forEach((key) => highlightByKey(key));
+        if (playStatus) playStatus.textContent = `Сейчас: ${segment.label}`;
+      };
+
+      const syncByTime = (currentTime) => {
+        const index = activeTimeline.findIndex(
+          (seg) => currentTime >= seg.start && currentTime < seg.end
+        );
+        if (index !== -1) {
+          applySegment(index);
+        }
+      };
+
+      if (media && playPauseBtn) {
+        const setButtonState = (state) => {
+          playPauseBtn.setAttribute("aria-label", state === "playing" ? "Stop" : "Play");
+          const icon = playPauseBtn.querySelector("svg path");
+          if (!icon) return;
+          if (state === "playing") {
+            icon.setAttribute("d", "M6 5h4v14H6zM14 5h4v14h-4z");
+          } else {
+            icon.setAttribute("d", "M8 5v14l11-7z");
+          }
+        };
+
+        playPauseBtn.addEventListener("click", () => {
+          if (media.paused) {
+            media.play();
+          } else {
+            media.pause();
+            media.currentTime = 0;
+          }
+        });
+
+        media.addEventListener("play", () => {
+          setButtonState("playing");
+        });
+
+        media.addEventListener("pause", () => {
+          setButtonState("paused");
+        });
+
+        media.addEventListener("ended", () => {
+          playPauseBtn.textContent = "Play";
+          if (playStatus) playStatus.textContent = "Готово к воспроизведению";
+          clearHighlights();
+        });
+
+        media.addEventListener("timeupdate", () => {
+          syncByTime(media.currentTime);
+        });
+
+        media.addEventListener("loadedmetadata", () => {
+          syncByTime(0);
+        });
+      }
+
       const themes = Object.entries(reportData.themes).map(([label, item]) => ({
         label,
         count: item.count,
@@ -710,7 +952,7 @@
         pct: reportData.themes_other.pct,
       });
 
-      const buildTable = (containerId, rows) => {
+      const buildTable = (containerId, rows, keyMap = {}) => {
         const container = document.getElementById(containerId);
         if (!container) return;
         const table = document.createElement("table");
@@ -719,6 +961,8 @@
         const tbody = document.createElement("tbody");
         rows.forEach((row) => {
           const tr = document.createElement("tr");
+          const key = keyMap[row.label];
+          if (key) tr.dataset.key = key;
           tr.innerHTML = `<td>${row.label}</td><td>${formatNumber(row.count)}</td><td>${formatPercent(row.pct)}</td>`;
           tbody.appendChild(tr);
         });
@@ -728,35 +972,67 @@
         container.appendChild(table);
       };
 
-      buildTable("themesTable", themes.sort((a, b) => b.count - a.count));
+      const themeKeyMap = {
+        "Запись в дилерский центр": "theme-booking",
+        "Цена / скидки / акции": "theme-price",
+        "Автокредит": "theme-credit",
+        "Сроки поставки": "theme-delivery",
+        "Трейд-ин": "theme-tradein",
+        "Комплектации и опции": "theme-trim",
+        "Наличие автомобиля": "theme-stock",
+      };
+      buildTable("themesTable", themes.sort((a, b) => b.count - a.count), themeKeyMap);
 
       const dissatRows = Object.entries(reportData.dissatisfaction).map(([label, item]) => ({
         label,
         count: item.count,
         pct: item.pct,
       }));
-      buildTable("dissatisfactionTable", dissatRows.sort((a, b) => b.count - a.count));
+      const dissatKeyMap = {
+        "Цена выше ожиданий": "dissat-expensive",
+        "Проблемы с сайтом": "dissat-site",
+        "Недостаточная компетентность": "dissat-consult",
+      };
+      buildTable("dissatisfactionTable", dissatRows.sort((a, b) => b.count - a.count), dissatKeyMap);
 
       const objectionsRows = Object.entries(reportData.objections).map(([label, item]) => ({
         label,
         count: item.count,
         pct: item.pct,
       }));
-      buildTable("objectionsTable", objectionsRows.sort((a, b) => b.count - a.count));
+      const objectionsKeyMap = {
+        "Не сейчас": "obj-not-now",
+        "Я подумаю": "obj-think",
+        "Долго ждать": "obj-wait",
+        "Конкуренты предлагают выгоднее": "obj-competitors",
+        "Дорого": "obj-expensive",
+      };
+      buildTable("objectionsTable", objectionsRows.sort((a, b) => b.count - a.count), objectionsKeyMap);
 
       const qualityRows = Object.entries(reportData.quality).map(([label, item]) => ({
         label,
         count: item.count,
         pct: item.pct,
       }));
-      buildTable("qualityTable", qualityRows.sort((a, b) => b.count - a.count));
+      const qualityKeyMap = {
+        "Длинные паузы": "quality-pauses",
+        "Неуверенная речь": "quality-uncertain",
+        "Нет фиксации следующего шага": "quality-next",
+      };
+      buildTable("qualityTable", qualityRows.sort((a, b) => b.count - a.count), qualityKeyMap);
 
       const longRows = Object.entries(reportData.long_calls.reasons).map(([label, item]) => ({
         label,
         count: item.count,
         pct: item.pct,
       }));
-      buildTable("longCallsTable", longRows.sort((a, b) => b.count - a.count));
+      const longKeyMap = {
+        "Сложное объяснение кредитных условий": "long-credit",
+        "Ручной расчёт кредита": "long-manual",
+        "Несовпадение цены на сайте": "long-site",
+        "Нет чёткого сценария консультации": "long-noscript",
+      };
+      buildTable("longCallsTable", longRows.sort((a, b) => b.count - a.count), longKeyMap);
 
       const modelRows = Object.entries(reportData.model_objections).map(([label, item]) => ({
         label,
@@ -772,6 +1048,7 @@
         const tbody = document.createElement("tbody");
         modelRows.forEach((row) => {
           const tr = document.createElement("tr");
+          if (row.label === "UNI-S (CS55 Plus)") tr.dataset.key = "model-uni-s";
           tr.innerHTML = `<td>${row.label}</td><td>${formatNumber(row.count)}</td><td>${formatNumber(
             row.price
           )}</td><td>${formatNumber(row.availability)}</td>`;
@@ -806,10 +1083,36 @@
         topList.innerHTML = "";
         topObjections.forEach((row) => {
           const li = document.createElement("li");
+          const key = objectionsKeyMap[row.label];
+          if (key) li.dataset.key = key;
           li.textContent = `${row.label} — ${formatNumber(row.count)} (${formatPercent(row.pct)})`;
           topList.appendChild(li);
         });
       }
+
+      registerHighlight("model-price", document.getElementById("modelObjections"));
+      registerHighlight("model-availability", document.getElementById("modelObjections"));
+
+      tagListByKeywords("#section-7 .card:first-child .list", {
+        "chain-price": "цена →",
+        "chain-stock": "нет наличия",
+        "chain-credit": "кредит →",
+      });
+
+      tagListByKeywords("#section-8 .card:first-child .list", {
+        "loss-price": "цена выше",
+        "loss-stock": "налич",
+        "loss-delivery": "срок",
+        "loss-trim": "комплектац",
+        "loss-credit": "кредит",
+      });
+
+      tagListByKeywords("#section-9 .card:first-child .list", {
+        "rec-credit": "кредит",
+        "rec-stock": "налич",
+        "rec-next": "следующ",
+        "rec-objections": "возраж",
+      });
 
       const getTheme = (label) => reportData.themes[label] || { count: 0, pct: 0 };
       const getQuality = (label) => reportData.quality[label] || { count: 0, pct: 0 };
@@ -820,6 +1123,7 @@
       setText("themePriceDominant", `${formatNumber(getTheme("Цена / скидки / акции").count)} (${formatPercent(getTheme("Цена / скидки / акции").pct)})`);
       setText("themeCreditDominant", `${formatNumber(getTheme("Автокредит").count)} (${formatPercent(getTheme("Автокредит").pct)})`);
       setText("themeDeliveryDominant", `${formatNumber(getTheme("Сроки поставки").count)} (${formatPercent(getTheme("Сроки поставки").pct)})`);
+      setText("themeStockSummary", `${formatNumber(getTheme("Наличие автомобиля").count)} (${formatPercent(getTheme("Наличие автомобиля").pct)})`);
 
       setText("themePrice", `${formatNumber(getTheme("Цена / скидки / акции").count)} звонков`);
       setText("themeStock", `${formatNumber(getTheme("Наличие автомобиля").count)} звонков`);
