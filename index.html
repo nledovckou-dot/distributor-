@@ -84,8 +84,18 @@
 
       <section class="section" id="section-1">
         <div class="section__head">
-          <h2>1. Темы обращений клиентов по новым автомобилям</h2>
+          <h2>1. Темы обращений клиентов по новым автомобилям <button class="info-btn" data-info="section-1-info" aria-label="Методология">i</button></h2>
           <p>Классификация тем по интенсивности упоминаний в видимых диалогах.</p>
+          <div class="info-tooltip" id="section-1-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>База:</strong> 12 862 звонков по новым авто (отфильтрованы из 59 293 строк CSV).</li>
+              <li><strong>Метод:</strong> в тексте расшифровки каждого звонка ищутся ключевые слова по каждой теме.</li>
+              <li><strong>Один звонок может попасть в несколько тем</strong> — поэтому сумма процентов превышает 100%.</li>
+              <li><strong>Формула:</strong> <span class="info-formula">% = кол-во звонков с темой / 12 862 × 100</span></li>
+              <li><strong>Индекс 1–5</strong> на графике — условная шкала по частоте: 5 = очень часто, 1 = редко.</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -114,8 +124,18 @@
 
       <section class="section" id="section-2">
         <div class="section__head">
-          <h2>2. Причины недовольства клиентов (только новые авто)</h2>
+          <h2>2. Причины недовольства клиентов (только новые авто) <button class="info-btn" data-info="section-2-info" aria-label="Методология">i</button></h2>
           <p>Причины, которые реально подтверждаются в тексте расшифровок.</p>
+          <div class="info-tooltip" id="section-2-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>База:</strong> 12 862 звонков по новым авто.</li>
+              <li><strong>Метод:</strong> фиксируется по явным негативным маркерам в тексте (жалобы, претензии, выражения неудовлетворённости).</li>
+              <li><strong>Категории не взаимоисключающие</strong> — один звонок может содержать несколько причин недовольства.</li>
+              <li><strong>Формула:</strong> <span class="info-formula">% = кол-во звонков с причиной / 12 862 × 100</span></li>
+              <li><strong>Индекс 0–5:</strong> нулевые значения означают, что причина не подтверждена данными.</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -148,8 +168,18 @@
 
       <section class="section" id="section-3">
         <div class="section__head">
-          <h2>3. Типы возражений клиентов</h2>
+          <h2>3. Типы возражений клиентов <button class="info-btn" data-info="section-3-info" aria-label="Методология">i</button></h2>
           <p>Возражения, выделенные из реальных формулировок клиентов.</p>
+          <div class="info-tooltip" id="section-3-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>База:</strong> 12 862 звонков по новым авто.</li>
+              <li><strong>Метод:</strong> фиксируется при наличии прямой фразы возражения от клиента в расшифровке.</li>
+              <li><strong>Несколько возражений</strong> возможны в одном звонке — сумма % > 100%.</li>
+              <li><strong>«Не сейчас» (43,8%) и «Я подумаю» (17,3%)</strong> — мягкие возражения, часто означают отложенный спрос, а не окончательный отказ.</li>
+              <li><strong>Формула:</strong> <span class="info-formula">% = кол-во звонков с возражением / 12 862 × 100</span></li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -177,8 +207,18 @@
 
       <section class="section" id="section-4">
         <div class="section__head">
-          <h2>4. Возражения в разрезе моделей / брендов</h2>
+          <h2>4. Возражения в разрезе моделей / брендов <button class="info-btn" data-info="section-4-info" aria-label="Методология">i</button></h2>
           <p>Сравнение проблем цены и доступности по моделям (если модель указана).</p>
+          <div class="info-tooltip" id="section-4-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>База:</strong> только звонки с заполненным полем <code>model</code> в CSV.</li>
+              <li><strong>«Цена»:</strong> кол-во звонков с возражением «дорого» по данной модели.</li>
+              <li><strong>«Наличие»:</strong> кол-во звонков с вопросом о доступности / сроках ожидания модели.</li>
+              <li><strong>«Всего»:</strong> общее число звонков по данной модели (включая звонки без возражений).</li>
+              <li><strong>Показаны топ-6 моделей</strong> с наибольшим числом звонков.</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -202,8 +242,19 @@
 
       <section class="section" id="section-5">
         <div class="section__head">
-          <h2>5. Качество коммуникации операторов / менеджеров</h2>
+          <h2>5. Качество коммуникации операторов / менеджеров <button class="info-btn" data-info="section-5-info" aria-label="Методология">i</button></h2>
           <p>Проблемы фиксировались по временным меткам и тексту диалогов.</p>
+          <div class="info-tooltip" id="section-5-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>База:</strong> 12 862 звонков по новым авто.</li>
+              <li><strong>Длинные паузы (79,7%):</strong> разрыв между репликами ≥ 25 секунд по таймстемпам. Высокий % может быть связан с ожиданием переключения на менеджера или поиском информации в системе.</li>
+              <li><strong>Неуверенная речь (26,8%):</strong> фразы «не знаю», «не в курсе», «не подскажу» в тексте.</li>
+              <li><strong>«Проблемный звонок»:</strong> хотя бы 1 проблема качества из списка. Поэтому доля 87,1% — из-за широкого определения.</li>
+              <li><strong>Рейтинг операторов:</strong> <span class="info-formula">% = проблемные звонки оператора / всего звонков оператора × 100</span></li>
+              <li><strong>Важно:</strong> «Не определен» (6 906 звонков) — звонки без идентификации оператора, более 50% базы.</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -250,8 +301,19 @@
 
       <section class="section" id="section-6">
         <div class="section__head">
-          <h2>6. Причины длинных и неэффективных звонков</h2>
+          <h2>6. Причины длинных и неэффективных звонков <button class="info-btn" data-info="section-6-info" aria-label="Методология">i</button></h2>
           <p>Факторы, повышающие длительность и нагрузку на операторов.</p>
+          <div class="info-tooltip" id="section-6-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>«Длинный звонок»:</strong> длительность выше средней — более 265,93 сек (≈ 4,4 мин).</li>
+              <li><strong>Таких звонков:</strong> 5 289 из 12 862 (41,1%).</li>
+              <li><strong>Причины</strong> определяются по ключевым словам в тексте длинных звонков.</li>
+              <li><strong>Один звонок может иметь несколько причин</strong> — поэтому сумма % > 100% (итого ≈ 149%).</li>
+              <li><strong>Формула:</strong> <span class="info-formula">% = кол-во длинных звонков с причиной / 5 289 × 100</span></li>
+              <li><strong>«Процесс» vs «Информация»:</strong> стекированная диаграмма делит причины на операционные (процесс KЦ) и информационные (данные на сайте).</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -284,8 +346,17 @@
 
       <section class="section" id="section-7">
         <div class="section__head">
-          <h2>7. Дополнительные связи для управленческих решений</h2>
+          <h2>7. Дополнительные связи для управленческих решений <button class="info-btn" data-info="section-7-info" aria-label="Методология">i</button></h2>
           <p>Каскады проблем, выявленные в текстах диалогов.</p>
+          <div class="info-tooltip" id="section-7-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>Метод:</strong> пересечение тем и возражений внутри одного звонка.</li>
+              <li><strong>Пример:</strong> если звонок одновременно содержит тему «Цена» и возражение «дорого» — это связка «цена → дорого».</li>
+              <li><strong>Показаны категории</strong> с наибольшим числом совпадений.</li>
+              <li><strong>Цифры в скобках</strong> — абсолютное число и доля звонков с данным пересечением.</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -316,8 +387,17 @@
 
       <section class="section" id="section-8">
         <div class="section__head">
-          <h2>8. Итоговые управленческие выводы</h2>
+          <h2>8. Итоговые управленческие выводы <button class="info-btn" data-info="section-8-info" aria-label="Методология">i</button></h2>
           <p>Сводные управленческие приоритеты, основанные на видимых данных.</p>
+          <div class="info-tooltip" id="section-8-info">
+            <strong>Как считалось:</strong>
+            <ul>
+              <li><strong>ТОП-5 причин потери сделок:</strong> данные из раздела «Причины недовольства» (секция 2). Процент от базы 12 862 звонков.</li>
+              <li><strong>ТОП-5 факторов длинных звонков:</strong> данные из раздела «Длинные звонки» (секция 6). Процент от базы 5 289 длинных звонков.</li>
+              <li><strong>Критические зоны:</strong> абсолютное число звонков из разделов «Темы» и «Качество».</li>
+              <li><strong>Важно:</strong> это агрегация данных из предыдущих разделов, а не отдельный расчёт.</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -360,8 +440,16 @@
 
       <section class="section" id="section-9">
         <div class="section__head">
-          <h2>9. Рекомендации</h2>
+          <h2>9. Рекомендации <button class="info-btn" data-info="section-9-info" aria-label="Методология">i</button></h2>
           <p>Приоритетные действия для роста конверсии звонок → визит.</p>
+          <div class="info-tooltip" id="section-9-info">
+            <strong>На основании чего:</strong>
+            <ul>
+              <li><strong>Сайт и цифровые каналы:</strong> рекомендации основаны на темах с максимальной долей звонков (цена 45,7%, кредит 39,6%, наличие 28,4%).</li>
+              <li><strong>Скрипты и процесс:</strong> основаны на причинах длинных звонков (кредитные условия 65,6%, ручной расчёт 25,5%) и проблемах качества (нет следующего шага 10,6%).</li>
+              <li><strong>Приоритет:</strong> действия упорядочены по потенциальному влиянию на конверсию «звонок → визит».</li>
+            </ul>
+          </div>
         </div>
         <div class="legend">
           <h3>Легенда и критерии</h3>
@@ -1312,6 +1400,22 @@
             y: { grid: { display: false } },
           },
         },
+      });
+
+      // Info buttons toggle
+      document.querySelectorAll('.info-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const targetId = btn.dataset.info;
+          const tooltip = document.getElementById(targetId);
+          if (!tooltip) return;
+          const wasOpen = tooltip.classList.contains('is-open');
+          document.querySelectorAll('.info-tooltip.is-open').forEach((t) => t.classList.remove('is-open'));
+          if (!wasOpen) tooltip.classList.add('is-open');
+        });
+      });
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.info-tooltip.is-open').forEach((t) => t.classList.remove('is-open'));
       });
 
       const modelLabels = modelRows.map((row) => row.label);
